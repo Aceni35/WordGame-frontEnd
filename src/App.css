@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap");
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: "Ubuntu", sans-serif;
+  background: #b9e3c6;
+}
+.auth-box {
+  background: #fffd98;
+}
+.info-input {
+  border: none;
+}
+.info-input:focus {
+  outline: none;
+}
+.word-card {
+  background: #1d2f6f;
+}
+.hints-card {
+  background: #8390fa;
+}
+.def-input {
+  width: 80%;
+  height: 40px;
+}
+.att-card {
+  background: #59c9a5;
+}
+.att-card-opp {
+  background: #c97e59;
+}
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  width: 40vw;
+  min-width: 350px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 30px;
+}
+.content-enter {
+  animation: SlideClassic 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.content-leave {
+  animation: leave 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.text-container {
+  margin-bottom: 30px;
+}
+
+@keyframes SlideClassic {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0vw);
+  }
+}
+@keyframes leave {
+  0% {
+    transform: translateX(0vw);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+.menu-options {
+  background-color: #ffffff;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.menu-options:hover {
+  transform: scale(0.92);
+}
+.friends-block:hover {
+  transform: scale(0.92);
+  background-color: #9b9b9b;
+}
+.friends-block {
+  transition: all 0.3s;
+}
+.options-text {
+  font-size: 1.3rem;
+}
+.right-text {
+  font-size: 1.3rem;
+}
+.bell {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.not {
+  position: absolute;
+  right: 35px;
+  background-color: red;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  border-radius: 100%;
+  color: white;
+  top: 28px;
+}
+@media (max-width: 497px) {
+  .options-text {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .right-text {
+    font-size: 0.8rem;
+  }
+}
+
+button:disabled {
+  z-index: -1;
+  position: relative;
+}
+.clan-inp {
+  width: 70%;
+  border-radius: 10px;
+  height: 25px;
+  border: solid 0.5px black;
+}
+.hide-scroll {
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
