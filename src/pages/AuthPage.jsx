@@ -9,6 +9,7 @@ function App() {
   const [login, setLogin] = useState(false);
   const [properties, setproperties] = useState({ show: false, remember: true });
   const [isError, setError] = useState({ isErr: false, errMsg: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
   const { setSocketId, getData } = useAppContext();
@@ -29,6 +30,7 @@ function App() {
 
   const Register = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.post(`${api}/api/v1/register`, {
         username: form.username,
         password: form.password,
@@ -36,16 +38,19 @@ function App() {
       setForm({ username: "", password: "" });
       localStorage.setItem("token", response.data.token);
       setSocketId(response.data.username);
+      setIsLoading(false);
+
       navigate("/");
     } catch (error) {
       setForm({ username: "", password: "" });
+      setIsLoading(false);
       changeError(error.response.data.msg);
       console.log(error);
     }
   };
 
   const Login = async () => {
-    console.log("run");
+    setIsLoading(true);
     try {
       const response = await axios.post(`${api}/api/v1/login`, {
         username: form.username,
@@ -55,9 +60,11 @@ function App() {
       localStorage.setItem("token", response.data.token);
       console.log(response.data.username);
       setSocketId(response.data.username);
+      setIsLoading(false);
       navigate("/");
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
       setForm({ username: "", password: "" });
       changeError(error.response.data.msg);
     }
@@ -157,6 +164,7 @@ function App() {
             {login ? (
               <button
                 className="btn btn-info m-3"
+                disabled={isLoading}
                 onClick={() => {
                   Login();
                 }}
@@ -165,6 +173,7 @@ function App() {
               </button>
             ) : (
               <button
+                disabled={isLoading}
                 className="btn btn-info m-3"
                 onClick={() => {
                   Register();

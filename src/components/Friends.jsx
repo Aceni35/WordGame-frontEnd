@@ -20,7 +20,7 @@ const Friends = () => {
         className="col-md-4 rounded bg-light col-5 text-center "
         style={{ marginLeft: "5px", marginRight: "-5px" }}
       >
-        <div className="col-12 right-text">Your friends</div>
+        <div className="col-12 right-text">Your online friends</div>
         <div className="row flex-column" style={{ height: "296px" }}>
           {onlineFriends.length === 0 ? (
             <h6>You have no online friends</h6>

@@ -79,31 +79,66 @@ const Context = ({ children }) => {
     });
 
     socket.on("friend-request", (friend) => {
-      console.log("request");
-      getData();
+      console.log(friend);
       toast.info(`You have a friend request by ${friend}`, {
         position: "top-center",
       });
+      setNotifications((prev) => [
+        {
+          from: friend,
+          isAccepted: "no-answer",
+          isLoading: false,
+          type: "friend-request",
+        },
+        ...prev,
+      ]);
     });
-    socket.on("got-accepted", (user) => {
-      getData();
+    socket.on("got-accepted", (user, id) => {
       toast.success(`${user} accepted your friend request`);
+      setFriends((prev) => [
+        ...prev,
+        { username: user, id, record: { loss: 0, wins: 0 } },
+      ]);
     });
     socket.on("challenge-received", (user) => {
-      getData();
+      setNotifications((prev) => [
+        {
+          from: user,
+          isAccepted: "no-answer",
+          isLoading: false,
+          type: "game-challenge",
+        },
+        ...prev,
+      ]);
       toast.success(`${user} has sent you a challenge`);
     });
     socket.on("challenge-back", (user) => {
-      getData();
+      const newNots = notifications.filter(
+        (x) =>
+          x.from != user &&
+          x.type != "game-challenge" &&
+          x.isAccepted != "no-answer"
+      );
+      setNotifications(newNots);
       toast.info(`user ${user} is afraid of you`);
     });
-    socket.on("clan-request", () => {
+    socket.on("clan-request", (user) => {
+      setNotifications((prev) => [
+        {
+          from: user,
+          isAccepted: "no-answer",
+          isLoading: false,
+          type: "clan-request",
+        },
+        ...prev,
+      ]);
       toast.info("you have a new clan request");
-      getData();
     });
     socket.on("unfriend", (user) => {
+      const newFriends = friends.filter((x) => x.username != user);
+      setFriends(newFriends);
+      setOnlineFriends(onlineFriends.filter((x) => x.username != user));
       toast.info(`user ${user} is no longer your friend`);
-      getData();
     });
     socket.on("teamMate-left", (name) => {
       setClanMessages((prev) => [

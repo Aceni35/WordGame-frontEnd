@@ -34,8 +34,8 @@ const Challange = () => {
               <div className="row mt-1 bg-light">
                 <div className="col-6">{f.username}</div>
                 <div className="col-3">
-                  <span className="text-green">W</span> /{" "}
-                  <span className="text-danger">L</span>
+                  <span className="text-green">{f.record.wins} W</span> /{" "}
+                  <span className="text-danger">{f.record.loss}L</span>
                 </div>
                 <div className="col-3 text-center">
                   {!f.isEdit ? (
@@ -57,7 +57,7 @@ const Challange = () => {
                       <span
                         className="text-danger border me-1"
                         onClick={() => {
-                          const newArray = Friends.map((fr) => {
+                          const newArray = Friends.filter((fr) => {
                             if (fr.username === f.username) {
                               return { ...f, isLoading: true };
                             }
